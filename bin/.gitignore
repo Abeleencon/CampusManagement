@@ -1,5 +1,2 @@
-# Ignore everything 
-*
-
-# But not these files
-!.gitignore
+/com/
+/log4j2.xml
