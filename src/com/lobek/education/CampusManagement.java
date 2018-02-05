@@ -19,6 +19,7 @@ public class CampusManagement {
 	
 	private static Logger logger = LogManager.getLogger(CampusManagement.class);
 	private static Properties prop = new Properties();
+	private static Connection conn = null;
 
 	/**
 	 * @param args
@@ -30,6 +31,8 @@ public class CampusManagement {
 		printInstructions();
 		
 		processApp();
+		
+		closeConnection();
 	}
 	
 	/**
@@ -174,18 +177,33 @@ public class CampusManagement {
 	 * @return The database connection
 	 * 
 	 */
-	private static Connection getConnection() {
-		Connection conn = null;
-		
-        String url = prop.getProperty("db.connection_string");
-        
-        try {
-            conn = DriverManager.getConnection(url);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+	private static Connection getConnection() 
+	{
+		if (conn == null) {			
+	        String url = prop.getProperty("db.connection_string");
+	        
+	        try {
+	            conn = DriverManager.getConnection(url);
+	        } catch (SQLException e) {
+	            System.out.println(e.getMessage());
+	        }
+		}
         
         return conn;
+	}
+	
+	/**
+	 * Close the database connection
+	 */
+	private static void closeConnection() 
+	{
+		if (conn != null) {
+			try {
+				conn.close();
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
 	}
 
 }
