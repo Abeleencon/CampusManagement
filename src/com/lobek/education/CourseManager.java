@@ -193,17 +193,19 @@ public class CourseManager implements DataTypeManager {
 		Scanner scn = new Scanner(System.in);
 		System.out.print("Please enter the course id to be modified: ");
 		int idModify = scn.nextInt();
-		try {
-			Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT * FROM course WHERE id = ? " + idModify );
+			try {
+			
+			Statement stmt = this.conn.createStatement();
+			System.out.println(idModify);
+		ResultSet rs = stmt.executeQuery("SELECT * FROM course WHERE id = '" + idModify + "';");
 		
 			int id = rs.getInt("id");
 			String department = rs.getString("dept_id");
 			String courseCode = rs.getString("code");
 			String courseName = rs.getString("name");
 			String description = rs.getString("description");
-						
-			System.out.format("ID: %s\n, Department ID: %s\n, Code: %s\n, Name: %s\n, Description: %s\n", id, department, courseCode, courseName, description);
+					
+			System.out.format(" ID: %s\n Department ID: %s\n Code: %s\n Name: %s\n Description: %s\n", id, department, courseCode, courseName, description);
 		
 		stmt.close();
 		} catch (Exception e) {
@@ -216,45 +218,50 @@ public class CourseManager implements DataTypeManager {
 		System.out.println("n           Change course name");
 		System.out.println("t           Change course description");
 		System.out.println("b           Go Back");
-		System.out.print("Please enter your command to continue: ");
+		System.out.print("Enter the field you want to modify: ");
 		
-		char u; 
+		char u;
 				
 		do {
-			String consoleLine = scn.nextLine();
+			
+			String consoleLine = scn.next();
 			u = consoleLine.charAt(0);
 			
 			switch(u) {
 				case 'd':
 					System.out.print("Dept ID: ");
-					String dept_id = scn.nextLine();
-					String sql1 = ("UPDATE course SET (dept_id) VALUES(?)");
+					String dept_id = scn.next();
+					String sql1 = ("UPDATE course SET dept_id = ? WHERE id = ? ");
 					PreparedStatement preparedStatement = this.conn.prepareStatement(sql1);
 					preparedStatement.setString(1, dept_id);
+					preparedStatement.setInt(2, idModify);
 					preparedStatement.executeUpdate();
 					break;
 				case 'c':
 					System.out.print("Course Code: ");
 					String courseCode = scn.nextLine();
-					String sql2 = ("UPDATE course SET (code) VALUES(?)");
-					PreparedStatement preparedStatement2 = conn.prepareStatement(sql2);
+					String sql2 = ("UPDATE course SET code = ? WHERE id = ? ");
+					PreparedStatement preparedStatement2 = this.conn.prepareStatement(sql2);
 					preparedStatement2.setString(1, courseCode);
+					preparedStatement2.setInt(2, idModify);
 					preparedStatement2.executeUpdate();
 					break;
 				case 'n':
 					System.out.print("Name: ");
 					String courseName = scn.nextLine();
-					String sql3 = ("UPDATE course SET (name) VALUES(?)");
-					PreparedStatement preparedStatement3 = conn.prepareStatement(sql3);
+					String sql3 = ("UPDATE course SET name = ? WHERE id = ? ");
+					PreparedStatement preparedStatement3 = this.conn.prepareStatement(sql3);
 					preparedStatement3.setString(1, courseName);
+					preparedStatement3.setInt(2, idModify);
 					preparedStatement3.executeUpdate();
 					break;
 				case 't':
 					System.out.print("Description: ");
 					String courseDescription = scn.nextLine();
-					String sql4 = ("UPDATE course SET (description) VALUES(?)");
-					PreparedStatement preparedStatement4 = conn.prepareStatement(sql4);
+					String sql4 = ("UPDATE course SET description = ? WHERE id = ? ");
+					PreparedStatement preparedStatement4 = this.conn.prepareStatement(sql4);
 					preparedStatement4.setString(1, courseDescription);
+					preparedStatement4.setInt(2, idModify);
 					preparedStatement4.executeUpdate();
 					break;
 					
