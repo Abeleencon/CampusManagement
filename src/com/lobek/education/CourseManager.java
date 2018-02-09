@@ -136,7 +136,6 @@ public class CourseManager implements DataTypeManager {
 	public void addNewCourse() {
 		
 		try {
-			//Statement stmt = this.conn.createStatement();
 			Scanner scn = new Scanner(System.in);
 			System.out.print("Please enter the course details below:\n ");
 			System.out.print("Dept ID: ");
@@ -163,7 +162,6 @@ public class CourseManager implements DataTypeManager {
 			
 			preparedStatement.close();
 			conn.close();
-			//stmt.close();
 			System.out.print("Thank you for adding a new course!\n ");
 			} catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -220,6 +218,7 @@ public class CourseManager implements DataTypeManager {
 		System.out.println("b           Go Back");
 		System.out.print("Enter the field you want to modify: ");
 		
+				
 		char u;
 				
 		do {
@@ -239,7 +238,7 @@ public class CourseManager implements DataTypeManager {
 					break;
 				case 'c':
 					System.out.print("Course Code: ");
-					String courseCode = scn.nextLine();
+					String courseCode = scn.next();
 					String sql2 = ("UPDATE course SET code = ? WHERE id = ? ");
 					PreparedStatement preparedStatement2 = this.conn.prepareStatement(sql2);
 					preparedStatement2.setString(1, courseCode);
@@ -248,7 +247,7 @@ public class CourseManager implements DataTypeManager {
 					break;
 				case 'n':
 					System.out.print("Name: ");
-					String courseName = scn.nextLine();
+					String courseName = scn.next();
 					String sql3 = ("UPDATE course SET name = ? WHERE id = ? ");
 					PreparedStatement preparedStatement3 = this.conn.prepareStatement(sql3);
 					preparedStatement3.setString(1, courseName);
@@ -257,7 +256,7 @@ public class CourseManager implements DataTypeManager {
 					break;
 				case 't':
 					System.out.print("Description: ");
-					String courseDescription = scn.nextLine();
+					String courseDescription = scn.next();
 					String sql4 = ("UPDATE course SET description = ? WHERE id = ? ");
 					PreparedStatement preparedStatement4 = this.conn.prepareStatement(sql4);
 					preparedStatement4.setString(1, courseDescription);
