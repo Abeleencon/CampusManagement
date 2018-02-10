@@ -130,8 +130,7 @@ public class CourseManager implements DataTypeManager {
 				System.err.println("Got an exception!");
 				System.err.println(e.getMessage());
 		}
-		
-		
+				
 	}
 	public void addNewCourse() {
 		
@@ -210,14 +209,7 @@ public class CourseManager implements DataTypeManager {
 			System.err.println("Got an exception!");
 			System.err.println(e.getMessage());
 	} 
-		System.out.println("Enter a command below to edit this course");
-		System.out.println("d           Change course department id");
-		System.out.println("c           Change course code");
-		System.out.println("n           Change course name");
-		System.out.println("t           Change course description");
-		System.out.println("b           Go Back");
-		System.out.print("Enter the field you want to modify: ");
-		
+			printModifyInstructions();
 				
 		char u;
 				
@@ -235,6 +227,8 @@ public class CourseManager implements DataTypeManager {
 					preparedStatement.setString(1, dept_id);
 					preparedStatement.setInt(2, idModify);
 					preparedStatement.executeUpdate();
+					System.out.format("The course department id has been updated.%n%n");			
+					printModifyInstructions();
 					break;
 				case 'c':
 					System.out.print("Course Code: ");
@@ -244,6 +238,8 @@ public class CourseManager implements DataTypeManager {
 					preparedStatement2.setString(1, courseCode);
 					preparedStatement2.setInt(2, idModify);
 					preparedStatement2.executeUpdate();
+					System.out.format("The course department Course Code has bleen updated.%n%n");
+					printModifyInstructions();
 					break;
 				case 'n':
 					System.out.print("Name: ");
@@ -253,6 +249,8 @@ public class CourseManager implements DataTypeManager {
 					preparedStatement3.setString(1, courseName);
 					preparedStatement3.setInt(2, idModify);
 					preparedStatement3.executeUpdate();
+					System.out.format("The course department Name has been updated.%n%n");
+					printModifyInstructions();
 					break;
 				case 't':
 					System.out.print("Description: ");
@@ -262,6 +260,8 @@ public class CourseManager implements DataTypeManager {
 					preparedStatement4.setString(1, courseDescription);
 					preparedStatement4.setInt(2, idModify);
 					preparedStatement4.executeUpdate();
+					System.out.format("The course department Description has been updated.%n%n");
+					printModifyInstructions();
 					break;
 					
 				case 'b': 
@@ -272,8 +272,19 @@ public class CourseManager implements DataTypeManager {
 										
 			}
 		} while (u != 'b');
-			
-		scn.close();
 		
+			
+	}
+	
+	private void printModifyInstructions()
+	{
+		System.out.println("Enter a command below to edit this course");
+		System.out.println("d           Change course department id");
+		System.out.println("c           Change course code");
+		System.out.println("n           Change course name");
+		System.out.println("t           Change course description");
+		System.out.println("b           Go Back");
+		System.out.print("Enter the field you want to modify: ");
+				
 	}
 }
